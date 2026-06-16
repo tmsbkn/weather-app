@@ -1,2 +1,2 @@
-# webpack-template
-A template repo for future webpack projects
+# Weather App
+A javascript powered weather app.
