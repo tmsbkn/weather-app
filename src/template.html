@@ -6,17 +6,157 @@
       <title>Tempest</title>
       <script src="https://kit.fontawesome.com/35c4121c17.js" crossorigin="anonymous"></script>
    </head>
-   <body>
-      <header>
-      <div class="content-wrapper">
-      <div id="location-bar" >
-                     <input type="text" name="location" id="location" data-id="location" placeholder="Toronto">
-         </div>
-         </div>
-</header>
-      <main>
-         <div id="content"></div>
-      </main>
-      <footer></footer>
+   <body class="app">
+      <div class="app__wrapper">
+         <aside class="sidebar frost">
+            <header class="brand">
+               <h1 class="brand__name">Tempest</h1>
+            </header>
+            <form id="search-form" class="search" action="#" method="get">
+<label class="search__label" for="location-input">Location</label>
+<div class="search__field">
+   <input class="search__input" type="search" name="location" id="location-input" placeholder="City or Town" autocomplete="off" >
+   <button type="submit" id="search-button" class="search__btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+</div>
+            </form>
+         </aside>
+         <main id="content" class="main">
+            <section id="current-weather" class="hero frost">
+               <div class="hero__top">
+                  <div class="hero__icon" id="icon-current"></div>
+                  <div class="hero__meta">
+                     <p class="hero__location">Toronto</p>
+                     <p class="hero__condition">Sunny</p>
+                  </div>
+               </div>
+               <p id="temp-current" class="hero__temp">24</p>
+               <div class="hero__details">
+                  <p id="temp-feels" class="hero__feels">Feels like 26</p>
+                  <p id="description" class="hero__desc">Sunny conditions throughout</p>
+                  <div class="hero__range">
+                     <span class="hero__range-item">
+                        <span class="hero__range-label">Low</span>
+                        <span id="temp-min" class="hero__range-value">16</span>
+                     </span>
+                     <span class="hero__range-item">
+                        <span class="hero__range-label">High</span>
+                        <span id="temp-max" class="hero__range-value">28</span>
+                     </span>
+                     
+                  </div>
+               </div>
+            </section>
+            <section id="current">
+               <h2>At a glance</h2>
+               <div class="nodes frost">
+                  <article class="frost">
+                     <h3>Humidity</h3>
+                     <p id="humidity">48%</p>
+                  </article>
+                  <article class="frost">
+                     <h3>Pressure</h3>
+                     <p id="pressure">1100mba</p>
+                  </article>
+                  <article class="frost">
+                     <h3>UV Index</h3>
+                     <p id="uvIndex">10</p>
+                  </article>
+                  <article class="frost">
+                     <h3>Wind</h3>
+                     <p id="wind">15kph</p>
+                  </article>
+                  <article class="frost">
+                     <h3>Gust</h3>
+                     <p id="gust">80kph</p>
+                  </article>
+               
+               
+                  <article class="frost">
+                     <h3>Sunrise</h3>
+                     <p id="sunrise">6:45 AM</p>
+                  </article>
+                  <article class="frost">
+                     <h3>Sunset</h3>
+                     <p id="sunrise">8:00 PM</p>
+                  </article>
+                  <article class="frost">
+                     <h3>Precipitation</h3>
+                     <p id="precipitation">47%</p>
+                  </article>
+               </div>
+            </section>
+            
+            <section id="weekly-forecast" class="weekly">
+               <h2 id="weekly-heading" class="section-title">This week</h2>
+               <div class="weekly__grid frost">
+                  <article class="day-card frost">
+                     <p class="day-card__label">Mon</p>
+                     <div class="day-card__icon icon-placeholder"></div>
+                     <p class="day-card__temps">
+                        <span class="day-card__high">78°</span>
+                        <span class="day-card__low">61°</span>
+                     </p>
+                     <p class="day-card__condition">Partly cloudy</p>
+                     </article>
+                     <article class="day-card frost">
+                     <p class="day-card__label">Tue</p>
+                     <div class="day-card__icon icon-placeholder"></div>
+                     <p class="day-card__temps">
+                        <span class="day-card__high">78°</span>
+                        <span class="day-card__low">61°</span>
+                     </p>
+                     <p class="day-card__condition">Partly cloudy</p>
+                     </article>
+                     <article class="day-card frost">
+                     <p class="day-card__label">Wed</p>
+                     <div class="day-card__icon icon-placeholder"></div>
+                     <p class="day-card__temps">
+                        <span class="day-card__high">78°</span>
+                        <span class="day-card__low">61°</span>
+                     </p>
+                     <p class="day-card__condition">Partly cloudy</p>
+                     </article>
+                     <article class="day-card frost">
+                     <p class="day-card__label">Thu</p>
+                     <div class="day-card__icon icon-placeholder"></div>
+                     <p class="day-card__temps">
+                        <span class="day-card__high">78°</span>
+                        <span class="day-card__low">61°</span>
+                     </p>
+                     <p class="day-card__condition">Partly cloudy</p>
+                     </article>
+                     <article class="day-card frost">
+                     <p class="day-card__label">Fri</p>
+                     <div class="day-card__icon icon-placeholder"></div>
+                     <p class="day-card__temps">
+                        <span class="day-card__high">78°</span>
+                        <span class="day-card__low">61°</span>
+                     </p>
+                     <p class="day-card__condition">Partly cloudy</p>
+                     </article>
+                     <article class="day-card frost">
+                     <p class="day-card__label">Sat</p>
+                     <div class="day-card__icon icon-placeholder"></div>
+                     <p class="day-card__temps">
+                        <span class="day-card__high">78°</span>
+                        <span class="day-card__low">61°</span>
+                     </p>
+                     <p class="day-card__condition">Partly cloudy</p>
+                     </article>
+                     <article class="day-card frost">
+                     <p class="day-card__label">Sun</p>
+                     <div class="day-card__icon icon-placeholder"></div>
+                     <p class="day-card__temps">
+                        <span class="day-card__high">78°</span>
+                        <span class="day-card__low">61°</span>
+                     </p>
+                     <p class="day-card__condition">Partly cloudy</p>
+                     </article>
+                  </article>
+               </div>
+            </section>
+         </main>
+      </div>
+      <footer><p>Written by <a href="http://tmsbkn.ca">tmsbkn</a></p> <i class="fa-brands fa-github"></i> </footer>
    </body>
 </html>
