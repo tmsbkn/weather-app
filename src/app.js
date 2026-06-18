@@ -6,6 +6,7 @@ const app = (() =>{
     const defaultWeather = null;
     let currentWeather = defaultWeather;
 
+    const getCurrentWeather = () => {return currentWeather};
     const fetchWeather = async (location) => {
         const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?key=${key}`;
         try {
@@ -26,8 +27,8 @@ const app = (() =>{
         const temp = {
             current: data.currentConditions.temp,
             feelsLike: data.currentConditions.feelsLike,
-            min: data.currentConditions.tempmin,
-            max: data.currentConditions.tempmax,
+            min: data.days[0].tempmin,
+            max: data.days[0].tempmax,
         };
         const atmosphere = {
             humidity: data.currentConditions.humidity,
@@ -57,7 +58,7 @@ const app = (() =>{
         console.log(currentWeather);
         
     }
-    return {fetchWeather, parseWeather};
+    return {fetchWeather, parseWeather, getCurrentWeather};
 })();
 
 export default app;

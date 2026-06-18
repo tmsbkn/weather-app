@@ -1,4 +1,5 @@
 :root{
+    
     --ff-system: system-ui;
     --color-primary: #222;
     --color-text-muted: rgba(42, 38, 34, 0.5);
@@ -20,7 +21,66 @@ body.app{
             165deg, var(--color-bg) 0%, #ddd 100%
         );
 }
-.app__wrapper{
+.hide {
+  display: none !important;
+}
+/* --- Layout --- */
+
+.app__shell {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: min(100%, 1600px);
+  max-width: 1600px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-xl);
+  gap: var(--space-lg);
+}
+
+.app-idle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: min(10vh, 5rem);
+  width: 100%;
+  min-height: 0;
+}
+
+.app-idle__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: 40rem;
+  padding: 0 var(--space-sm);
+}
+
+.app-idle__hint {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.app-ready {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+}
+
+.brand--center {
+  text-align: center;
+}
+
+.search--idle {
+  width: 100%;
+  margin-top: var(--space-2xl);
+}
+.app__wrapper, .app__layout{
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
@@ -250,3 +310,51 @@ footer{
         cursor: pointer;
     }
 }
+
+.loading {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(42, 38, 34, 0.25);
+}
+
+.loading--hidden {
+  display: none;
+}
+
+.loading__panel {
+  padding: var(--space-xl) var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.loading__spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 3px solid var(--glass-border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.loading__text {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading__spinner {
+    animation: none;
+    border-top-color: var(--accent);
+  }}
