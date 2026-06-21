@@ -1,13 +1,8 @@
 {
-<<<<<<< HEAD
    "name": "weather-app",
-=======
-   "name": "webpack-template",
->>>>>>> f56da9a (Revert "initial commit")
    "version": "1.0.0",
    "description": "A template repo for future webpack projects",
    "private": true,
-<<<<<<< HEAD
    "description": "A weather app used for the Odin Project",
    "keywords": [],
    "homepage": "https://github.com/tmsbkn/weather-appe#readme",
@@ -324,8 +319,6 @@
       "ws": "^8.21.0",
       "wsl-utils": "^0.1.0"
    },
-=======
->>>>>>> f56da9a (Revert "initial commit")
    "devDependencies": {
       "css-loader": "^7.1.4",
       "gh-pages": "^6.3.0",
