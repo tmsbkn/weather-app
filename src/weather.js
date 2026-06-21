@@ -1,3 +1,4 @@
+import { parse, format } from 'date-fns';
 export default class Weather {
    constructor(
       location,
@@ -10,7 +11,8 @@ export default class Weather {
       icon,
       description,
    ) {
-      this.location = location.charAt(0).toUpperCase() + location.slice(1);
+      this.location =
+         location.charAt(0).toUpperCase() + location.slice(1).toLowerCase();
       this.temperature = {
          current: temp.current,
          feelsLike: temp.feelsLike,
@@ -26,9 +28,13 @@ export default class Weather {
          speed: wind.speed,
          gust: wind.gust,
       };
+      const sunriseDate = parse(sun.sunrise, 'HH:mm:ss', new Date());
+      const sunriseString = format(sunriseDate, 'hh:mm a');
+      const sunsetDate = parse(sun.sunset, 'HH:mm:ss', new Date());
+      const sunsetString = format(sunsetDate, 'hh:mm a');
       this.sun = {
-         sunrise: sun.sunrise,
-         sunset: sun.sunset,
+         sunrise: sunriseString,
+         sunset: sunsetString,
       };
       this.precipitation = {
          precipType: precipitation.precipType,

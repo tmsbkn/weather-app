@@ -1,18 +1,9 @@
 import app from './app.js';
 
 const uiController = (() => {
-   async function fetchWeather(event) {
-      event.preventDefault();
+   async function fetchWeather(form, location, errorMessageDiv) {
+      errorMessageDiv.textContent = '';
 
-      const form = event.currentTarget;
-      // validate form-fields
-      validateLocationIdle();
-      if (!form.checkValidity()) {
-         form.reportValidity();
-         return;
-      }
-
-      const location = document.getElementById('location-input-idle').value;
       try {
          const data = await app.fetchWeather(location);
          app.parseWeather(data);
@@ -20,14 +11,54 @@ const uiController = (() => {
 
          if (weather) {
             developMainSection(weather);
-            showReadyView();
             developMetricsSection(weather);
+
+            showReadyView();
          }
       } catch (error) {
-         console.log(error);
+         if (error.message === 'Bad input: weather-fetch failed!') {
+            errorMessageDiv.textContent =
+               'Bad input: weather-fetch failed! Please try a valid input.';
+         } else
+            errorMessageDiv.textContent =
+               'Network Error! Please try again another time.';
       } finally {
          form.reset();
       }
+   }
+   function idleFormHandler(event) {
+      event.preventDefault();
+
+      const form = event.currentTarget;
+      //validate form-fields
+      const searchBar = document.getElementById('location-input-idle');
+      validateLocation(searchBar);
+      if (!form.checkValidity()) {
+         form.reportValidity();
+         return;
+      }
+
+      const location = document.getElementById('location-input-idle').value;
+
+      const errorMessageDiv = document.getElementById('search-error-idle');
+      fetchWeather(form, location, errorMessageDiv);
+   }
+
+   function readyFormHandler(event) {
+      event.preventDefault();
+
+      const form = event.currentTarget;
+
+      const searchBar = document.getElementById('location-input');
+      validateLocation(searchBar);
+      if (!form.checkValidity()) {
+         form.reportValidity();
+         return;
+      }
+
+      const location = document.getElementById('location-input').value;
+      const errorMessageDiv = document.getElementById('search-error-ready');
+      fetchWeather(form, location, errorMessageDiv);
    }
 
    function showIdleView() {
@@ -88,9 +119,8 @@ const uiController = (() => {
       precipAmount.textContent = `${weather.precipitation.precip === null ? '0' : Math.round(weather.precipitation.precip * 100) / 100}`;
    }
 
-   function validateLocationIdle() {
+   function validateLocation(searchBar) {
       // 1. reset custom validity
-      const searchBar = document.getElementById('location-input-idle');
       searchBar.setCustomValidity('');
 
       // 2. check validity and set custom validity
@@ -101,9 +131,17 @@ const uiController = (() => {
    function setEventListeners() {
       // idle view: searchbar, custom validity
       const idleForm = document.getElementById('search-form-idle');
-      idleForm.addEventListener('submit', fetchWeather);
+      idleForm.addEventListener('submit', idleFormHandler);
       const idleSearchBar = document.getElementById('location-input-idle');
-      idleSearchBar.addEventListener('input', validateLocationIdle);
+      idleSearchBar.addEventListener('input', () => {
+         validateLocation(idleSearchBar);
+      });
+      const readyForm = document.getElementById('search-form');
+      readyForm.addEventListener('submit', readyFormHandler);
+      const readySearchBar = document.getElementById('location-input');
+      readySearchBar.addEventListener('input', () => {
+         validateLocation(readySearchBar);
+      });
    }
 
    function initApp() {

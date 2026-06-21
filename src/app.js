@@ -9,14 +9,13 @@ const app = (() => {
    };
    const fetchWeather = async (location) => {
       const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?key=${key}`;
-      try {
-         const response = await fetch(url);
-         const data = await response.json();
 
-         return data;
-      } catch (error) {
-         console.error(error);
+      const response = await fetch(url);
+      if (!response.ok) {
+         throw new Error('Bad input: weather-fetch');
       }
+      const data = await response.json();
+      return data;
    };
 
    const parseWeather = (data) => {
