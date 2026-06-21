@@ -86,6 +86,6 @@ const app = (() => {
         
     }
     return {fetchWeather, parseWeather, getCurrentWeather};
-})();
+}})();
 
 export default app;
