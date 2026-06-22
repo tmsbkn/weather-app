@@ -10,8 +10,7 @@ const uiController = (() => {
          const weather = app.getCurrentWeather();
          
          if (weather) {
-            displayWeather(weather);
-
+            await displayWeather(weather);
             showReadyView();
          }
       } catch (error) {
@@ -81,7 +80,7 @@ const uiController = (() => {
       readySection.classList.remove('hide');
    }
 
-   function developMainSection(weather) {
+  async function developMainSection(weather) {
       const currentUnit = app.getCurrentUnit();
       const temperature = document.getElementById('temp-current');
       const location = document.getElementById('location');
@@ -98,6 +97,15 @@ const uiController = (() => {
       description.textContent = weather.description;
       tempMin.textContent = `${(currentUnit)==="C" ? app.convertToCelsius(weather.temperature.min): weather.temperature.min}°`;
       tempMax.textContent = `${(currentUnit)==="C" ? app.convertToCelsius(weather.temperature.max): weather.temperature.max}°`;
+   }
+   async function loadIcon(weather){
+      const iconElement = document.getElementById('icon-current');
+      const faviconElement = document.getElementById('favicon');
+      const favicon = await import(`../src/Icons/SVG/2nd Set - Color/${weather.icon}.svg`)
+      const icon = await import(`../src/Icons/SVG/2nd Set - Color/${weather.icon}.svg`);
+      faviconElement.href = favicon.default;
+      iconElement.src = icon.default;
+      iconElement.alt = weather.icon;
    }
 
    function developMetricsSection(weather) {
@@ -125,8 +133,9 @@ const uiController = (() => {
       precipProb.textContent = `${weather.precipitation.precipProb}%`;
       precipAmount.textContent = `${weather.precipitation.precip === null ? '0' : Math.round(weather.precipitation.precip * 100) / 100}`;
    }
-   function displayWeather(weather){
+   async function displayWeather(weather){
       developMainSection(weather);
+      await loadIcon(weather);
       developMetricsSection(weather);
    }
 

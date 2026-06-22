@@ -23,7 +23,7 @@ const app = (() => {
         const address = data.resolvedAddress;
         const temp = {
             current: data.currentConditions.temp,
-            feelsLike: data.currentConditions.feelsLike,
+            feelsLike: data.currentConditions.feelslike,
             min: data.days[0].tempmin,
             max: data.days[0].tempmax,
         };
