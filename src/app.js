@@ -18,38 +18,7 @@ const app = (() => {
       return data;
    };
 
-   const parseWeather = (data) => {
-      const location = data.resolvedAddress;
-      const temp = {
-         current: data.currentConditions.temp,
-         feelsLike: data.currentConditions.feelsLike,
-         min: data.days[0].tempmin,
-         max: data.days[0].tempmax,
-      };
-      const atmosphere = {
-         humidity: data.currentConditions.humidity,
-         pressure: data.currentConditions.pressure,
-         uvIndex: data.currentConditions.uvindex,
-      };
-      const wind = {
-         speed: data.currentConditions.windspeed,
-         gust: data.currentConditions.windgust,
-      };
-      const sun = {
-         sunrise: data.currentConditions.sunrise,
-         sunset: data.currentConditions.sunset,
-      };
-      const precipitation = {
-         precipType: data.currentConditions.preciptype,
-         precipProb: data.currentConditions.precipprob,
-         precip: data.currentConditions.precip,
-      };
-      const condition = data.currentConditions.conditions;
-      const icon = data.currentConditions.icon;
-      const desc = data.days[0].description;
-
-    const parseWeather = async (weatherData) => {
-        const data = await weatherData;
+    const parseWeather = async (data) => {
         const address = data.resolvedAddress;
         const temp = {
             current: data.currentConditions.temp,
@@ -81,11 +50,9 @@ const app = (() => {
 
         const weather = new Weather(address, temp, atmosphere, wind, sun, precipitation, condition, icon, desc);
         currentWeather = weather;
-
-        console.log(currentWeather);
-        
-    }
-    return {fetchWeather, parseWeather, getCurrentWeather};
-}})();
-
+        }
+      
+      return {fetchWeather, parseWeather, getCurrentWeather};
+})();
 export default app;
+

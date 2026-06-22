@@ -8,7 +8,7 @@ const uiController = (() => {
          const data = await app.fetchWeather(location);
          app.parseWeather(data);
          const weather = app.getCurrentWeather();
-
+         
          if (weather) {
             developMainSection(weather);
             developMetricsSection(weather);
@@ -28,10 +28,15 @@ const uiController = (() => {
    }
    function idleFormHandler(event) {
       event.preventDefault();
-
+      console.log("idle form submitted");
+      
       const form = event.currentTarget;
+      
+      
       //validate form-fields
       const searchBar = document.getElementById('location-input-idle');
+      
+      
       validateLocation(searchBar);
       if (!form.checkValidity()) {
          form.reportValidity();
@@ -39,7 +44,9 @@ const uiController = (() => {
       }
 
       const location = document.getElementById('location-input-idle').value;
-
+   
+      console.log(location);
+      
       const errorMessageDiv = document.getElementById('search-error-idle');
       fetchWeather(form, location, errorMessageDiv);
    }
