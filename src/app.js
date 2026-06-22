@@ -1,9 +1,11 @@
+import { parseISO, format } from 'date-fns';
 import Weather from './weather.js';
-
+import MiniWeather from './miniWeather.js';
 const app = (() => {
    const key = 'MWR6Z6RGNMP6WH5SP9P2S997P';
    let currentWeather = null;
-   let currentUnit = 'F';
+   let currentUnit = 'C';
+   let weeklyForecast = [];
 
    const getCurrentWeather = () => {
       return currentWeather;
@@ -65,7 +67,31 @@ const app = (() => {
         const setCelsius =() => currentUnit = 'C';
         const setFarenheit =() => currentUnit = 'F';
 
-      return {fetchWeather, parseWeather, getCurrentWeather, convertToCelsius, getCurrentUnit,  setFarenheit, setCelsius};
+        function fetchWeeklyForecast(data){
+            weeklyForecast =[];
+
+            for (let i = 1; i <= 7; i++) {
+                let day;
+                if(i===1){
+                    day = 'Tomorrow'
+                } else{
+                    const dayString = data.days[i].datetime;
+                   const date = parseISO(dayString);
+                    day = format(date, 'EEE');
+                }
+                const tempMin = data.days[i].tempmin;
+                const tempMax = data.days[i].tempmax;
+                const icon = data.days[i].icon;
+                const condition = data.days[i].conditions
+                const miniWeather = new MiniWeather(day, tempMin, tempMax, icon, condition);
+
+                weeklyForecast.push(miniWeather);
+            }
+        }
+        function getWeeklyForecast(){
+            return [...weeklyForecast];
+        }
+      return {fetchWeather, parseWeather, getCurrentWeather, convertToCelsius, getCurrentUnit,  setFarenheit, setCelsius, fetchWeeklyForecast, getWeeklyForecast};
 })();
 export default app;
 

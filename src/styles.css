@@ -1,5 +1,8 @@
+
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
+
 :root{
---font-display: "Fraunces", Georgia, serif;
+--font-display: "EB Garamond", Georgia, serif;
   --radius-sm: 10px;
   --radius-md: 16px;
   --radius-lg: 22px;
@@ -251,7 +254,7 @@ section.hero{
 }
 
 .hero__temp{
-    font-family: monospace;
+    font-family: "EB Garamond", serif;
     font-size: clamp(3.5rem, 12vw, 6rem);
     font-weight: 600;
     line-height: 0.8;

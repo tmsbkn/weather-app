@@ -3,11 +3,12 @@ import app from './app.js';
 const uiController = (() => {
    async function fetchWeather(form, location, errorMessageDiv) {
       errorMessageDiv.textContent = '';
-
+      document.getElementById("loading").classList.remove("loading--hidden");
       try {
          const data = await app.fetchWeather(location);
          app.parseWeather(data);
          const weather = app.getCurrentWeather();
+         await app.fetchWeeklyForecast(data);
          
          if (weather) {
             await displayWeather(weather);
@@ -19,9 +20,10 @@ const uiController = (() => {
                'Bad input: weather-fetch failed! Please try a valid input.';
          } else
             errorMessageDiv.textContent =
-               'Network Error! Please try again another time.';
+               error.message;
       } finally {
          form.reset();
+         document.getElementById("loading").classList.add("loading--hidden");
       }
    }
    function idleFormHandler(event) {
@@ -133,10 +135,35 @@ const uiController = (() => {
       precipProb.textContent = `${weather.precipitation.precipProb}%`;
       precipAmount.textContent = `${weather.precipitation.precip === null ? '0' : Math.round(weather.precipitation.precip * 100) / 100}`;
    }
+
+   async function developWeeklyForecast() {
+      const currentUnit = app.getCurrentUnit();
+      const weeklyForecast = app.getWeeklyForecast();
+     const weeklyGrid = document.querySelector(".weekly__grid");
+     weeklyGrid.innerHTML = "";
+      for (const miniWeather of weeklyForecast) {
+      const icon = await import(`./Icons/SVG/2nd Set - Color/${miniWeather.icon}.svg`);
+      const html = `<article class="day-card frost">
+                     <p class="day-card__label">${miniWeather.day}</p>
+                     <div class="day-card__icon">
+                        <img src="${icon.default}" alt="${miniWeather.icon}">
+                     </div>
+                     <p class="day-card__temps">
+                        <span class="day-card__high">${(currentUnit === "C") ? app.convertToCelsius(miniWeather.tempMax): miniWeather.tempMax}°</span>
+                        <span class="day-card__low">${(currentUnit === "C") ? app.convertToCelsius(miniWeather.tempMin): miniWeather.tempMin}°</span>
+                     </p>
+                     <p class="day-card__condition">${miniWeather.condition}</p>
+                     </article>`;
+
+            weeklyGrid.insertAdjacentHTML("beforeend", html);
+        }
+    }
+
    async function displayWeather(weather){
       developMainSection(weather);
       await loadIcon(weather);
       developMetricsSection(weather);
+      await developWeeklyForecast();
    }
 
    function validateLocation(searchBar) {
@@ -194,7 +221,7 @@ const uiController = (() => {
       showIdleView();
    }
 
-   return { initApp, showReadyView };
+   return { initApp };
 })();
 
 export default uiController;
