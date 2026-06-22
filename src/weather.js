@@ -11,8 +11,8 @@ export default class Weather {
       icon,
       description,
    ) {
-      this.location =
-         location.charAt(0).toUpperCase() + location.slice(1).toLowerCase();
+      this.location = titleCase(location);
+         
       this.temperature = {
          current: temp.current,
          feelsLike: temp.feelsLike,
@@ -45,4 +45,13 @@ export default class Weather {
       this.icon = icon;
       this.description = description;
    }
+}
+
+function titleCase(string){
+   const words = string.split(' ');
+  
+  const titleCaseString= words.map((word) => {
+      return word[0].toUpperCase() + word.substring(1).toLowerCase();
+   }).join(" ");
+return titleCaseString
 }

@@ -3,6 +3,7 @@ import Weather from './weather.js';
 const app = (() => {
    const key = 'MWR6Z6RGNMP6WH5SP9P2S997P';
    let currentWeather = null;
+   let currentUnit = 'F';
 
    const getCurrentWeather = () => {
       return currentWeather;
@@ -52,7 +53,19 @@ const app = (() => {
         currentWeather = weather;
         }
       
-      return {fetchWeather, parseWeather, getCurrentWeather};
+
+        const convertToCelsius = (temp) =>{
+         const celsius = ((temp-32)*5)/9;
+         return Math.round(celsius*10)/10;
+        }
+
+        const getCurrentUnit = () =>{
+         return currentUnit;
+        }
+        const setCelsius =() => currentUnit = 'C';
+        const setFarenheit =() => currentUnit = 'F';
+
+      return {fetchWeather, parseWeather, getCurrentWeather, convertToCelsius, getCurrentUnit,  setFarenheit, setCelsius};
 })();
 export default app;
 

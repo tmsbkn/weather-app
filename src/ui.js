@@ -10,8 +10,7 @@ const uiController = (() => {
          const weather = app.getCurrentWeather();
          
          if (weather) {
-            developMainSection(weather);
-            developMetricsSection(weather);
+            displayWeather(weather);
 
             showReadyView();
          }
@@ -83,6 +82,7 @@ const uiController = (() => {
    }
 
    function developMainSection(weather) {
+      const currentUnit = app.getCurrentUnit();
       const temperature = document.getElementById('temp-current');
       const location = document.getElementById('location');
       const condition = document.getElementById('condition');
@@ -91,13 +91,13 @@ const uiController = (() => {
       const tempMin = document.getElementById('temp-min');
       const tempMax = document.getElementById('temp-max');
 
-      temperature.textContent = `${weather.temperature.current}°`;
+      temperature.textContent = `${(currentUnit)==="C" ? app.convertToCelsius(weather.temperature.current): weather.temperature.current}°`;
       location.textContent = weather.location;
       condition.textContent = weather.condition;
-      feelsLike.textContent = `Feels like ${weather.temperature.feelsLike}°`;
+      feelsLike.textContent = `Feels like ${(currentUnit)==="C" ? app.convertToCelsius(weather.temperature.feelsLike): weather.temperature.feelsLike}°`;
       description.textContent = weather.description;
-      tempMin.textContent = `${weather.temperature.min}°`;
-      tempMax.textContent = `${weather.temperature.max}°`;
+      tempMin.textContent = `${(currentUnit)==="C" ? app.convertToCelsius(weather.temperature.min): weather.temperature.min}°`;
+      tempMax.textContent = `${(currentUnit)==="C" ? app.convertToCelsius(weather.temperature.max): weather.temperature.max}°`;
    }
 
    function developMetricsSection(weather) {
@@ -125,6 +125,10 @@ const uiController = (() => {
       precipProb.textContent = `${weather.precipitation.precipProb}%`;
       precipAmount.textContent = `${weather.precipitation.precip === null ? '0' : Math.round(weather.precipitation.precip * 100) / 100}`;
    }
+   function displayWeather(weather){
+      developMainSection(weather);
+      developMetricsSection(weather);
+   }
 
    function validateLocation(searchBar) {
       // 1. reset custom validity
@@ -149,6 +153,31 @@ const uiController = (() => {
       readySearchBar.addEventListener('input', () => {
          validateLocation(readySearchBar);
       });
+
+      const unitBtnC = document.getElementById("unit-C");
+        const unitBtnF = document.getElementById("unit-F");
+        unitBtnC.addEventListener("click", () => {
+            if (app.getCurrentUnit() === "C")
+                return;
+
+            unitBtnC.classList.add("unit-toggle__btn--active");
+            unitBtnF.classList.remove("unit-toggle__btn--active");
+
+            app.setCelsius();
+            const weather = app.getCurrentWeather();
+            displayWeather(weather);
+        });
+        unitBtnF.addEventListener("click", () => {
+            if (app.getCurrentUnit() === "F")
+                return;
+
+            unitBtnF.classList.add("unit-toggle__btn--active");
+            unitBtnC.classList.remove("unit-toggle__btn--active");
+
+            app.setFarenheit();
+            const weather = app.getCurrentWeather();
+            displayWeather(weather);
+        });
    }
 
    function initApp() {

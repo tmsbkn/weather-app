@@ -45,22 +45,26 @@
                 <p class="app-idle__hint">Search for a city/country to get started.</p>
             </div>
         </section>
-<div id="app-ready" class="app-ready hide">
+        <div id="app-ready" class="app-ready hide">
             <div class="app__layout">
-         <aside class="sidebar frost">
-            <header class="brand">
-               <h1 class="brand__name">Tempest</h1>
-            </header>
-            <form id="search-form" class="search" action="#" method="get">
-<label class="search__label" for="location-input">Location</label>
-<div class="search__field">
-   <input class="search__input" type="search" name="location" id="location-input" placeholder="City or Town" autocomplete="off" >
-   <button type="submit" id="search-button" class="search__btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-</div>
-<p id="search-error-ready"></p>
-            </form>
-         </aside>
-         <main id="content" class="main">
+               <aside class="sidebar frost">
+                  <header class="brand">
+                     <h1 class="brand__name">Tempest</h1>
+                  </header>
+                  <form id="search-form" class="search" action="#" method="get">
+                     <label class="search__label" for="location-input">Location</label>
+                     <div class="search__field">
+                        <input class="search__input" type="search" name="location" id="location-input" placeholder="City or Town" autocomplete="off" >
+                        <button type="submit" id="search-button" class="search__btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                     </div>
+                     <p id="search-error-ready"></p>
+                  </form>
+                 <div id="unit-toggle" class="unit-toggle">
+                     <button type="button" id="unit-C" class="unit-toggle__btn">°C</button>
+                     <button type="button" id="unit-F" class="unit-toggle__btn unit-toggle__btn--active">°F</button>
+                 </div>
+               </aside>
+               <main id="content" class="main">
             <section id="current-weather" class="hero frost">
                <div class="hero__top">
                   <div class="hero__icon" id="icon-current"></div>
